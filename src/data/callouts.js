@@ -1,4 +1,4 @@
-const CDN = "https://cnd.thaprophet.eu/images/cs2/minimaps";
+const CDN = "https://cdn.thaprophet.eu/images/cs2/minimaps";
 
 export const maps = [
   {
