@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react'
 import { useParams, Link, Navigate } from 'react-router-dom'
 import { getMap, maps } from '../data/callouts'
+import InteractiveMap from '../components/InteractiveMap'
 
 function GameBadge({ games }) {
   const both = games.includes('cs2') && games.includes('csgo')
@@ -25,6 +26,7 @@ export default function MapPage() {
   const { mapId } = useParams()
   const map = getMap(mapId)
   const [query, setQuery] = useState('')
+  const [hoveredCallout, setHoveredCallout] = useState(null)
 
   const filtered = useMemo(() => {
     if (!query.trim()) return map?.callouts ?? []
@@ -36,9 +38,9 @@ export default function MapPage() {
 
   if (!map) return <Navigate to="/callouts" replace />
 
-  const idx   = maps.findIndex(m => m.id === mapId)
-  const prev  = maps[idx - 1]
-  const next  = maps[idx + 1]
+  const idx  = maps.findIndex(m => m.id === mapId)
+  const prev = maps[idx - 1]
+  const next = maps[idx + 1]
 
   return (
     <div className="page">
@@ -74,12 +76,12 @@ export default function MapPage() {
           </div>
         </div>
 
-        {/* Map image */}
+        {/* Interactive map image */}
         <div className="map-image-wrap">
-          <img
-            src={map.image}
-            alt={`${map.name} callout map`}
-            className="map-image"
+          <InteractiveMap
+            map={map}
+            hoveredCallout={hoveredCallout}
+            onHover={setHoveredCallout}
           />
         </div>
 
@@ -122,9 +124,14 @@ export default function MapPage() {
               </thead>
               <tbody>
                 {filtered.map((c, i) => (
-                  <tr key={i} className="callout-row">
+                  <tr
+                    key={i}
+                    className={`callout-row${hoveredCallout === c.name ? ' row-highlighted' : ''}`}
+                    onMouseEnter={() => setHoveredCallout(c.name)}
+                    onMouseLeave={() => setHoveredCallout(null)}
+                  >
                     <td>
-                      <span className="callout-name">
+                      <span className={`callout-name${hoveredCallout === c.name ? ' name-highlighted' : ''}`}>
                         {highlight(c.name, query)}
                       </span>
                     </td>

@@ -140,3 +140,93 @@ a:hover { text-decoration: underline; }
 @media (max-width: 400px) {
   .maps-grid { grid-template-columns: 1fr; }
 }
+
+/* ─── Interactive Map ─────────────────────────────────────────── */
+
+.map-interactive-wrap {
+  position: relative;
+  display: block;
+  line-height: 0;         /* kills inline-block gap under img */
+  cursor: crosshair;
+  user-select: none;
+}
+
+.map-svg-overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  overflow: visible;
+  pointer-events: none;   /* overlay itself is transparent to mouse */
+}
+
+/* Each region polygon */
+.map-region {
+  fill: transparent;
+  stroke: none;
+  pointer-events: all;
+  transition: fill 0.1s ease;
+  cursor: crosshair;
+}
+
+.map-region:hover,
+.map-region.active {
+  fill: rgba(243, 156, 18, 0.22);
+  
+
+
+
+}
+
+/* Floating tooltip */
+.map-tooltip {
+  position: absolute;
+  width: 248px;
+  background: rgba(22, 27, 34, 0.97);
+  border: 1px solid rgba(243, 156, 18, 0.35);
+  border-radius: var(--radius);
+  padding: 10px 13px 11px;
+  pointer-events: none;
+  z-index: 20;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.55);
+  backdrop-filter: blur(4px);
+  animation: tooltip-in 0.1s ease;
+}
+
+@keyframes tooltip-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.tooltip-name {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--accent);
+  margin-bottom: 5px;
+  letter-spacing: 0.2px;
+}
+
+.tooltip-desc {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.map-no-regions {
+  position: absolute;
+  bottom: 10px; right: 12px;
+  font-size: 11px;
+  color: rgba(125,133,144,0.5);
+  pointer-events: none;
+}
+
+/* Table row ↔ map cross-linking */
+.callout-row.row-highlighted {
+  background: rgba(243, 156, 18, 0.07);
+}
+
+.callout-name.name-highlighted {
+  background: rgba(243, 156, 18, 0.18);
+  border-color: rgba(243, 156, 18, 0.5);
+  color: var(--accent);
+}
