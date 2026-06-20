@@ -170,7 +170,7 @@ a:hover { text-decoration: underline; }
 
 .map-region:hover,
 .map-region.active {
-  fill: rgba(243, 156, 18, 0.13);
+  fill: rgba(243, 156, 18, 0.22);
   
 
 
