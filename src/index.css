@@ -162,19 +162,19 @@ a:hover { text-decoration: underline; }
 /* Each region polygon */
 .map-region {
   fill: transparent;
-  stroke: transparent;
-  stroke-width: 0.4;
-  pointer-events: all;    /* re-enable mouse on each polygon */
-  transition: fill 0.12s ease, stroke 0.12s ease;
+  stroke: none;
+  pointer-events: all;
+  transition: fill 0.1s ease;
   cursor: crosshair;
 }
 
 .map-region:hover,
 .map-region.active {
-  fill: rgba(243, 156, 18, 0.22);
-  stroke: #f39c12;
-  stroke-width: 0.5;
-  filter: drop-shadow(0 0 3px rgba(243,156,18,0.35));
+  fill: rgba(243, 156, 18, 0.13);
+  
+
+
+
 }
 
 /* Floating tooltip */
