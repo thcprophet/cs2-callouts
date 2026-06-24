@@ -73,6 +73,16 @@ export default function InteractiveMap({ map, hoveredCallout, onHover }) {
         >
           <div className="tooltip-name">{active.name}</div>
           <div className="tooltip-desc">{active.description}</div>
+          {active.alternativeNames && active.alternativeNames.length > 0 && (
+            <div className="tooltip-also">
+              <span className="tooltip-also-label">Also known as:</span>
+              <ul className="tooltip-also-list">
+                {active.alternativeNames.map(a => (
+                  <li key={a.id}>{a.text}</li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       )}
 
